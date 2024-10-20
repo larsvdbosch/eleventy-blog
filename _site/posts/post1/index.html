@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo list</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/prism-shades-of-purple.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/11ty.ico" />
+    
+  </head>
+  <body>
+
+  <!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Todo list</title>
+    <link rel="stylesheet" href="/css/styles.css"> 
+  </head>
+  <body>
+    <nav>
+    <ul>
+        <li><a href="/">Home</a></li>
+        <li><a href="/posts/">Posts</a></li>
+    </ul>
+    </nav>
+  </body>
+</html>
+  
+    <header>
+      <h1>Todo list</h1>
+    </header>
+
+    <main>
+      <p><strong>Todo list maken met javascript</strong></p>
+<p>Vanaf het moment dat ik in de hoofdfase zit, heb ik een passie ontwikkeld voor programmeren. Op dit moment is dit nog op front-end niveau, want dit is echt wat ik nu leuk vind en wat een logische stap is om als beginner mee te starten. Mijn kennis van HTML en CSS is erg goed op dit moment, maar Javascript is nog steeds een puntje van aandacht. Ik heb in mijn 3e studiejaar wel al eens projecten gedaan met Javascript, maar snapte er eigenlijk niet veel van. Mijn manier van werken was eigenlijk heel simpel: ChatGPT en copy-paste code. Dit is voor mij en ik denk voor niemand niet een goede manier om programmeertalen te gaan begrijpen. Ik ben daarom deze periode in principe opnieuw begonnen met het onder de knie krijgen van javascript, waardoor ik me heb bezig gehouden met een laagdrempelig project zoals een todo-list maken, maar dan door zelf de code te schrijven.</p>
+<p><strong>Het avontuur</strong></p>
+<p>Ik moet eerlijk zeggen dat ik Javascript nog steeds erg lastig vindt. Hoewel HTML en CSS mij erg makkelijk afgaat, is Javascript toch een stuk moeilijker. Ik vind het wiskundige gedeelte van Javascript nog wel lastig, maar ook wel weer leuk. Ik heb op school het vak Wiskunde altijd leuk gevonden en dit merk ik terug tijdens het gebruiken van Javascript.</p>
+<p>De structuur van Javascript is wel een stuk anders opgebouwd. De welbekende var, const en let is natuurlijk allemaal nieuw en dit heeft best even geduurd voordat ik precies in de gaten kreeg waarom bepaalde code zo in elkaar zat.</p>
+<p>Wat ik zelf erg fijn vond om te doen, om voor het schrijven van code, een soort van stappenplan te schrijven. Dit werkt vooral goed als ik een function wilde gebruiken.</p>
+<p>Toelichting:</p>
+<p>De code die ik hier heb geschreven is voor het afvuren van confetti, mits de task afgevinkt is door middel van een checkbox. Toen ik deze regels met code voor het eerst zag, zag het er echt uit als wartaal.</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">toggleTodo</span><span class="token punctuation">(</span><span class="token parameter">index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed <span class="token operator">=</span> <span class="token operator">!</span>todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed<span class="token punctuation">;</span>
+            <span class="token function">saveTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">displayTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">triggerConfetti</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span></code></pre>
+<p>Voordat ik dus een functie wilde aanroepen heb ik in stappen opgeschreven wat ik met deze functie wilde bereiken. Dit ging als volgt:</p>
+<ul>
+<li>Ik wil dat de checkbox aangeklikt kan worden om een taak te “completen” of door een taak juist weer te “unchecken”.</li>
+<li>Als de checkbox aangeklikt wordt, wil ik een animatie om visueel weer te geven dat er een goede prestatie is geleverd. Dit mag alleen gebeuren bij het afvinken en niet andersom bij het ongedaan maken van het afvinken.</li>
+<li>Ik wil dat de status opgeslagen wordt in localstorage zodat de data bewaard blijft als ik de website ga refreshen.</li>
+</ul>
+<p>Na dit stappenplan, kan je de code per stap gaan opschrijven.</p>
+<ul>
+<li>Ik wil dat de checkbox aangeklikt kan worden om een taak te “completen” of door een taak juist weer te “unchecken”.</li>
+</ul>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">toggleTodo</span><span class="token punctuation">(</span><span class="token parameter">index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed <span class="token operator">=</span> <span class="token operator">!</span>todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed<span class="token punctuation">;</span>
+            <span class="token function">saveTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token function">displayTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token keyword">if</span> <span class="token punctuation">(</span>todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">triggerConfetti</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span>
+        <span class="token punctuation">}</span></code></pre>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">toggleTodo</span><span class="token punctuation">(</span><span class="token parameter">index</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+            todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed <span class="token operator">=</span> <span class="token operator">!</span>todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed<span class="token punctuation">;</span><span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Als de checkbox aangeklikt wordt, wil ik een animatie om visueel weer te geven dat er een goede prestatie is geleverd. Dit mag alleen gebeuren bij het afvinken en niet andersom bij het ongedaan maken van het afvinken.</li>
+</ul>
+<pre class="language-js"><code class="language-js"><span class="token keyword">if</span> <span class="token punctuation">(</span>todos<span class="token punctuation">[</span>index<span class="token punctuation">]</span><span class="token punctuation">.</span>completed<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+                <span class="token function">triggerConfetti</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+            <span class="token punctuation">}</span></code></pre>
+<ul>
+<li>Ik wil dat de status opgeslagen wordt in localstorage zodat de data bewaard blijft als ik de website ga refreshen.</li>
+</ul>
+<pre class="language-js"><code class="language-js"><span class="token function">saveTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token function">displayTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span></code></pre>
+<p>Dit heeft mij echt geholpen om de code te gaan begrijpen. Ik noem deze methode “Het ontleden van code”.</p>
+<p><strong>De code</strong></p>
+<p>Tijdens het todo project heb ik actief om feedback gevraagd aan Tjerk en klasgenoten die al meer kennis hebben van Javascript. Ik merk aan mezelf dat ik de feedback beter in mezelf opneem als ik persoonlijk en fysiek met iemand ga zitten. Tutorials op youtube lijken toegankelijk, maar sluiten niet aan op mijn persoonlijke snelheid en kennis van Javascript. Ik heb YouTube enkel gebruikt om inspiratie of uitleg te krijgen.</p>
+<p>Voordat ik ben begonnen met de todolist, heb ik van Tjerk een aantal handelingen gekregen die op de todo-list gedaan konden worden. Dit is voor mij echt een richtlijn geweest wat wel en niet moest gaan gebeuren. De focus lag dit keer niet op de styling (css) van de website, maar puur de functionaliteit en het onder de knie krijgen van Javascript.</p>
+<p>Tjerk heeft mijn code beoordeeld en comments geplaats waar nodig. Hieronder de raw comments inclusief typfouten ;-)</p>
+<pre class="language-js"><code class="language-js"><span class="token comment">// query selector all inputs</span>
+<span class="token comment">// foreach loopen</span>
+<span class="token comment">// aan al die checkboxes een eventlisten hangen en dan je checken of die checked.</span>
+<span class="token comment">// dan kan je confetti afvuren </span>
+
+
+<span class="token comment">// de JSON laden en alle todo's renderen</span>
+<span class="token comment">// laten zien in de html</span>
+
+<span class="token comment">// hou je de todos bij in de HTML of hou je het bij in een array met todo.</span>
+<span class="token comment">// remove from html</span>
+<span class="token comment">// array remove of array push</span>
+
+<span class="token comment">// zet in een array en render de array met todos</span>
+<span class="token comment">// functie nodig die heet render die krijgt een array met todo's en die poept ze uit in de html</span>
+
+<span class="token comment">// add, remove functie aanroept</span>
+<span class="token comment">// opnieuw render</span>
+
+<span class="token comment">// let todos = ["asdasdasd", "asdasdsa", "asdasd"];</span></code></pre>
+<p>Handig om te benoemen is dat ik eerst de todo’s in een unordered list in de HTML bijhield. Doordat ik localstorage wilde toevoegen, heb ik het bijhouden van de todo’s veranderd van de HTML naar een array die geëxporteerd kan worden als JSON.</p>
+<p>Code ging van:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">function</span> <span class="token function">saveData</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">"data"</span><span class="token punctuation">,</span> list<span class="token punctuation">.</span>innerHTML<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">showTask</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">{</span>
+    <span class="token keyword">const</span> savedData <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">"data"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span><span class="token punctuation">(</span>savedData<span class="token punctuation">)</span><span class="token punctuation">{</span>
+        list<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> savedData<span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Naar:</p>
+<pre class="language-js"><code class="language-js"><span class="token keyword">let</span> todos <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">;</span>
+<span class="token keyword">function</span> <span class="token function">saveTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    localStorage<span class="token punctuation">.</span><span class="token function">setItem</span><span class="token punctuation">(</span><span class="token string">'todos'</span><span class="token punctuation">,</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">stringify</span><span class="token punctuation">(</span>todos<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">}</span>
+window<span class="token punctuation">.</span><span class="token function-variable function">onload</span> <span class="token operator">=</span> <span class="token keyword">function</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> storedTodos <span class="token operator">=</span> localStorage<span class="token punctuation">.</span><span class="token function">getItem</span><span class="token punctuation">(</span><span class="token string">'todos'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token keyword">if</span> <span class="token punctuation">(</span>storedTodos<span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        todos <span class="token operator">=</span> <span class="token constant">JSON</span><span class="token punctuation">.</span><span class="token function">parse</span><span class="token punctuation">(</span>storedTodos<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token function">displayTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span>
+<span class="token keyword">function</span> <span class="token function">displayTodos</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+    <span class="token keyword">const</span> todoList <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">getElementById</span><span class="token punctuation">(</span><span class="token string">'itemList'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    todoList<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token string">''</span><span class="token punctuation">;</span>
+
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">let</span> i <span class="token operator">=</span> <span class="token number">0</span><span class="token punctuation">;</span> i <span class="token operator">&lt;</span> todos<span class="token punctuation">.</span>length<span class="token punctuation">;</span> i<span class="token operator">++</span><span class="token punctuation">)</span> <span class="token punctuation">{</span>
+        <span class="token keyword">const</span> li <span class="token operator">=</span> document<span class="token punctuation">.</span><span class="token function">createElement</span><span class="token punctuation">(</span><span class="token string">'li'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        li<span class="token punctuation">.</span>innerHTML <span class="token operator">=</span> <span class="token template-string"><span class="token template-punctuation string">`</span><span class="token string">
+            &lt;input type="checkbox" onchange="toggleTodo(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">)" </span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>todos<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>completed <span class="token operator">?</span> <span class="token string">'checked'</span> <span class="token operator">:</span> <span class="token string">''</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">>
+            &lt;span class="</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>todos<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>completed <span class="token operator">?</span> <span class="token string">'completed'</span> <span class="token operator">:</span> <span class="token string">''</span><span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">"></span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>todos<span class="token punctuation">[</span>i<span class="token punctuation">]</span><span class="token punctuation">.</span>text<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">&lt;/span>
+            &lt;span class="delete-btn" onclick="deleteTodo(</span><span class="token interpolation"><span class="token interpolation-punctuation punctuation">${</span>i<span class="token interpolation-punctuation punctuation">}</span></span><span class="token string">)">❌&lt;/span>
+        </span><span class="token template-punctuation string">`</span></span><span class="token punctuation">;</span>
+        todoList<span class="token punctuation">.</span><span class="token function">appendChild</span><span class="token punctuation">(</span>li<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">}</span>
+<span class="token punctuation">}</span></code></pre>
+<p>Door de code te veranderen heb ik nu een button toegevoegd die de JSON kan exporteren, waardoor je een JSON file kan exporteren met daarin de todo’s weergegeven in een array.</p>
+<p><strong>Conclusie</strong></p>
+<p>Ik heb veel geleerd van de projecten die ik heb gedaan met Javascript. Vooral ook omdat ik voordat ik begon erg weinig kennis had van javascript. Het is dus in principe allemaal nieuw voor mij geweest deze periode. Hoewel ik nu de structuur van javascript begrijp, vind ik het nog steeds lastig om de code wel helemaal zelf te schrijven. Ik ben natuurlijk actief geweest op MDN docs en stackoverflow, maar vaak is de uitleg erg algemeen en moet je code zo vormen dat het passend is voor je project. Ik heb dus best wat moeite gehad om de code echt werkend te krijgen en hier heeft ook best wat tijd ingezeten. Soms kon ik minuten lang staren naar 1 regel met code om te achterhalen waarom er een error werd weergegeven. Ik weet dus 100% zeker dat ik de volgende periode weer met Javascript bezig ga. Ik vind het desondanks erg leuk en houd ervan om opnieuw uitgedaagd te worden met nieuw coding-languages. Ik laat eerst nog even de frameworks zoals NEXT.js en React achterwegen, want dit kan ik beter oppakken als ik nog meer geoefend heb met javascript. Ik heb zelf een schema waarbij meerdere projecten m.b.v. javascript staan opgedeeld per niveau.</p>
+
+    </main>
+  </body>
+</html>

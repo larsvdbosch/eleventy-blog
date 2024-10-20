@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{{ title }}</title>
+    <link rel="stylesheet" href="/css/styles.css">
+    <link rel="stylesheet" href="/css/prism-shades-of-purple.css">
+    <link rel="shortcut icon" type="image/x-icon" href="/11ty.ico" />
+    
+  </head>
+  <body>
+
+  {% include "nav.njk" %}
+  
+    <header>
+      <h1>{{ title }}</h1>
+    </header>
+
+    <main>
+      {{ content | safe }}
+    </main>
+  </body>
+</html>
